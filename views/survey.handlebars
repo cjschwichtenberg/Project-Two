@@ -30,26 +30,34 @@
   p {
     color: black;
   }
- 
-  #results-view {
-   display: grid;
-   grid-template-columns: 310px 310px 310px 310px 310px;
-   grid-column-gap: 20px;
-   grid-row-gap: 20px;
-   padding: 20px;
+
+ #results-view {
+   display: inline-flex;
+   flex-flow: row wrap;
+   justify-content: space-around;
+   align-items: flex-start;
+   align-content: flex-start;
+   height: 500px;
+   margin-right: auto;
+   margin-left: auto;
+ }
+
+ #results-column {
+ width: 300px;
+ height: 500px;
+ margin-right: auto;
+ margin-left: auto;
+ overflow: scroll;
+ padding:5px;
  }
 
  #card {
-   display: inline-block;
-   border: 2px, solid, black;
    width: 300px;
-   max-height: 500px;
-   margin-right: auto;
-   margin-left: auto;
-   margin-top: auto;
-   margin-left: auto;
-   padding: 10px;
+   height: 500px;
+   padding: 5px;
+   overflow: scroll;
  }
+
 </style>
 
 
@@ -147,8 +155,8 @@
 <!-- Submit Button -->
 
 <div class='container-fluid text-center' id='mainbody'>
-  <div class='row text-center'>
-    <div class='col-md-3 col-sm-12 text-center' id='results-view'></div>
+  <div class='text-center'>
+    <div class='row text-center' id='results-view'></div>
   </div>
 </div>
 
@@ -253,6 +261,8 @@
         }
         for (var i = 0; i < displayLength; i++) {
           console.log(response[i].name);
+          var resultsColumn = $('<div>').addClass('col-sm-12 col-md-4 col-lg-4');
+          resultsColumn = $('<div>').attr('id', 'results-column');
           var resultsDiv = $('<div>').addClass('card mx-auto');
           var resultsName = $('<h5>').addClass('card-title').text(response[i].name);
           var resultsTag = $('<h6>').addClass('card-subtitle mb-2 text-muted').text(response[i].tagline);
@@ -268,7 +278,8 @@
           resultsDiv.append(resultsEBC);
           resultsDiv.append(resultsDescription);
           resultsDiv.append(resultsDate);
-          $('#results-view').append(resultsDiv);
+          resultsColumn.append(resultsDiv);
+          $('#results-view').append(resultsColumn);
         }
       });
     }
